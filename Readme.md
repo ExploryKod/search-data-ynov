@@ -3,9 +3,46 @@
 ## Objectif
 Ce projet a pour but de permettre aux participants de s'immerger dans une technologie ou un concept spécifique en développant un Proof of Concept (POC). À travers cette démarche, les participants pourront explorer des outils, expérimenter des fonctionnalités, et partager leurs apprentissages avec leurs pairs.
 
----
+## Mon choix
 
-## Étapes et Structure du Travail
+J'ai choisi de travailler sur l'intégration de Algolia avec Laravel sur un jeu de données publique issue de Algolia. 
+
+#### Mon but:
+Créer un outil pour rechercher par mot-clés des articles dans l'index (jeu de données) issu de Algolia.
+
+## Installation
+
+Nécessite les outils suivants : 
+- [Node.js](https://nodejs.org/) (version recommandée : LTS)
+- Gestionnaire de packages npm
+- PHP > 8.1
+- MySQL en local
+
+Me demander les clés API pour Algolia ou alors utilisez les vôtre et générez un index "ecommerce" avec leur sample de données "ecommerce".
+
+Installer les dépendances :
+- `composer install`
+- `npm install`
+
+Créer votre base de donnée locale 
+Copier le `env.example` dans un `.env` et le mettre à jour avec vos données, surtout pour la BDD.
+Mettre à jour `config/scout.php` avec vos clés API Algolia le cas échéant.
+
+Ouvrir 2 terminaux et à la racine du projet : 
+
+Sur un premier terminal:
+- `php artisan key:generate`
+- `php artisan migrate`
+- `php artisan serve`
+
+Puis sur le second : 
+- `npm run build`
+- `npm run dev`
+
+et aller sur `localhost:8000`
+
+
+## Consignes et étapes demandées
 
 ### 1. Choix du Sujet
 - **Description** : Les participants sélectionnent un sujet parmi une liste proposée ou peuvent soumettre une idée originale (soumise à validation).
@@ -36,21 +73,6 @@ Ce projet a pour but de permettre aux participants de s'immerger dans une techno
   - Expliquer brièvement le concept ou la technologie abordée.
   - Démontrer le fonctionnement du POC.
   - Répondre aux questions des participants.
-
----
-
-## Comment Contribuer
-1. Forkez ce dépôt.
-2. Créez une branche pour votre sujet : `git checkout -b feature/votre-sujet`.
-3. Ajoutez votre code et mettez à jour la documentation.
-4. Créez une Pull Request.
-
----
-
-## Prérequis
-- [Node.js](https://nodejs.org/) (version recommandée : LTS)
-- Gestionnaire de packages (npm ou yarn)
-- Frameworks ou bibliothèques nécessaires pour le sujet choisi.
 
 ---
 
