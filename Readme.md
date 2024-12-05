@@ -1,7 +1,10 @@
 # Projet : Proof of Concept (POC)
 
+Projet mis en ligne : [accés au site web](https://www.wica4254.odns.fr/)
+
 ## Objectif
-Ce projet a pour but de permettre aux participants de s'immerger dans une technologie ou un concept spécifique en développant un Proof of Concept (POC). À travers cette démarche, les participants pourront explorer des outils, expérimenter des fonctionnalités, et partager leurs apprentissages avec leurs pairs.
+Ce projet a pour but de s'immerger dans une technologie ou un concept spécifique en développant un Proof of Concept (POC). 
+À travers cette démarche, on peux explorer des outils, expérimenter des fonctionnalités, et partager des apprentissages.
 
 ## Mon choix
 
