@@ -21,9 +21,9 @@ export default function Dashboard() {
                     </div>
 
                     <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                     
-                        <Link 
-                            href={route('products.index')} 
+
+                        <Link
+                            href={route('products.index')}
                             className="block p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800"
                         >
                             <div className="flex items-center">
@@ -54,6 +54,7 @@ export default function Dashboard() {
                             </div>
                         </Link>
                     </div>
+
                 </div>
             </div>
         </AuthenticatedLayout>
