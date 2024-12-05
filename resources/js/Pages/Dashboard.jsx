@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
+import { InstantSearch, RefinementList } from 'react-instantsearch';
 
 export default function Dashboard() {
     return (
@@ -54,6 +55,8 @@ export default function Dashboard() {
                             </div>
                         </Link>
                     </div>
+                    <RefinementList attribute="brand" />
+                
                 </div>
             </div>
         </AuthenticatedLayout>
