@@ -2,6 +2,18 @@
 
 Projet mis en ligne : [accés au site web](https://www.wica4254.odns.fr/)
 
+Une fois sur le site en ligne il faut se connecter avec ces identifiants :
+
+- Email
+```
+user@test.com
+```
+- Mot de passe
+```
+password
+```
+Ou créer votre compte si ça ne marche pas.
+
 ## Objectif
 Ce projet a pour but de s'immerger dans une technologie ou un concept spécifique en développant un Proof of Concept (POC). 
 À travers cette démarche, on peux explorer des outils, expérimenter des fonctionnalités, et partager des apprentissages.
