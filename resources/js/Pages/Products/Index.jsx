@@ -6,12 +6,11 @@ const Index = ({ products, query, batch }) => {
     const [searchQuery, setSearchQuery] = useState(query || '');
     const [searchBatchQuery, setSearchBatchQuery] = useState(batch || 50);
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedCategory, setSelectedCategory] = useState(''); // For category filter
-    const [categories, setCategories] = useState([]); // Categories array
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [categories, setCategories] = useState([]);
     const productsPerPage = 10;
     const totalPages = Math.ceil(products.length / productsPerPage);
 
-    // Populate categories array on component mount
     useEffect(() => {
         const uniqueCategories = new Set();
         products.forEach(product => {
@@ -19,7 +18,7 @@ const Index = ({ products, query, batch }) => {
                 product.categories.forEach(category => uniqueCategories.add(category));
             }
         });
-        setCategories([...uniqueCategories]); // Convert Set to Array
+        setCategories([...uniqueCategories]);
     }, [products]);
 
     const handleSearch = (e) => {
@@ -35,7 +34,6 @@ const Index = ({ products, query, batch }) => {
         setSelectedCategory(e.target.value);
     };
 
-    // Filter products based on search query and selected category
     const filteredProducts = products.filter(product => {
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesCategory = !selectedCategory || (product.categories && product.categories.includes(selectedCategory));
@@ -139,7 +137,7 @@ const Index = ({ products, query, batch }) => {
                                     <div className="text-lg text-gray-700 dark:text-gray-200">
                                         {product.name}
                                     </div>
-                                    <div className="text-lg text-gray-700 dark:text-gray-200">
+                                    <div className="text-lg text-orange-700 dark:text-orange-600">
                                         {product.type}
                                     </div>
                                 </div>

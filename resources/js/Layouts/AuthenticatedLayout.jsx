@@ -41,6 +41,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Mes recherches de produits
                                 </NavLink>
+                                <NavLink
+                                    href={route('explanation.index')}
+                                    active={route().current('explanation.index')}
+                                >
+                                    Explication
+                                </NavLink>
                             </div>
                         </div>
 
