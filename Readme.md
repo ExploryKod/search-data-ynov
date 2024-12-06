@@ -23,7 +23,7 @@ Ce projet a pour but de s'immerger dans une technologie ou un concept spécifiqu
 J'ai choisi de travailler sur l'intégration de Algolia avec Laravel sur un jeu de données publique issue de Algolia. 
 
 #### Mon but:
-Créer un outil pour rechercher par mot-clés des articles dans l'index (jeu de données) issu de Algolia.
+Créer un outil pour rechercher par mot-clés des articles dans l'index (jeu de données préparées) issu de Algolia.
 
 ## Installation
 
