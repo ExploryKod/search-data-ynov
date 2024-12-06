@@ -8,6 +8,8 @@
 /storage/*.key
 /storage/pail
 /vendor
+build
+
 .env
 .env.backup
 .env.production
