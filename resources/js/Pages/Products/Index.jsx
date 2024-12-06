@@ -57,7 +57,7 @@ const Index = ({ products, query }) => {
                     </form>
 
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {paginatedProducts.map((product) => (
+                        {paginatedProducts.filter(product => product.image && product.name).map((product) => (
                             <li
                                 key={product.objectID}
                                 className="py-4 flex items-center gap-3"
