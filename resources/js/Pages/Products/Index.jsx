@@ -44,21 +44,32 @@ const Index = ({ products, query, batch }) => {
                         onSubmit={handleSearch}
                         className="flex flex-col gap-4 mb-6"
                     >
-                        <div className="flex items-center gap-4">
-                            <input
-                                type="text"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                placeholder="Rechercher des produits..."
-                                className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
-                            />
-                            <input
-                                type="number"
-                                value={searchBatchQuery}
-                                onChange={(e) => setSearchBatchQuery(e.target.value)}
-                                placeholder="Prix maximum"
-                                className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
-                            />
+                        <div className="flex flex-col gap-4">
+                            <div className="flex items-center gap-4">
+                                <input
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    placeholder="Rechercher des produits..."
+                                    className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+                                />
+                            </div>
+                            <div className="flex flex-col">
+                                <label
+                                    htmlFor="batch-input"
+                                    className="text-sm font-medium text-gray-700 dark:text-gray-200"
+                                >
+                                    Nombre de résultats
+                                </label>
+                                <input
+                                    id="batch-input"
+                                    type="number"
+                                    value={searchBatchQuery}
+                                    onChange={(e) => setSearchBatchQuery(e.target.value)}
+                                    placeholder="Nombre de batch"
+                                    className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+                                />
+                            </div>
                             <button
                                 type="submit"
                                 className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition duration-300 dark:bg-blue-500 dark:hover:bg-blue-600"
@@ -92,7 +103,7 @@ const Index = ({ products, query, batch }) => {
                     </ul>
 
                     <div className="flex justify-center mt-6">
-                        {Array.from({ length: totalPages }, (_, index) => (
+                        {Array.from({length: totalPages}, (_, index) => (
                             <button
                                 key={index}
                                 onClick={() => handlePageChange(index + 1)}
