@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router } from '@inertiajs/react';
 
@@ -6,8 +6,21 @@ const Index = ({ products, query, batch }) => {
     const [searchQuery, setSearchQuery] = useState(query || '');
     const [searchBatchQuery, setSearchBatchQuery] = useState(batch || 50);
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedCategory, setSelectedCategory] = useState(''); // For category filter
+    const [categories, setCategories] = useState([]); // Categories array
     const productsPerPage = 10;
     const totalPages = Math.ceil(products.length / productsPerPage);
+
+    // Populate categories array on component mount
+    useEffect(() => {
+        const uniqueCategories = new Set();
+        products.forEach(product => {
+            if (product.categories) {
+                product.categories.forEach(category => uniqueCategories.add(category));
+            }
+        });
+        setCategories([...uniqueCategories]); // Convert Set to Array
+    }, [products]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -18,12 +31,21 @@ const Index = ({ products, query, batch }) => {
         setCurrentPage(page);
     };
 
-    const paginatedProducts = products.slice(
+    const handleCategoryChange = (e) => {
+        setSelectedCategory(e.target.value);
+    };
+
+    // Filter products based on search query and selected category
+    const filteredProducts = products.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = !selectedCategory || (product.categories && product.categories.includes(selectedCategory));
+        return matchesSearch && matchesCategory;
+    });
+
+    const paginatedProducts = filteredProducts.slice(
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
     );
-
-
 
     return (
         <AuthenticatedLayout
@@ -70,6 +92,27 @@ const Index = ({ products, query, batch }) => {
                                     className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
                                 />
                             </div>
+                            <div className="flex flex-col">
+                                <label
+                                    htmlFor="category-select"
+                                    className="text-sm font-medium text-gray-700 dark:text-gray-200"
+                                >
+                                    Catégories
+                                </label>
+                                <select
+                                    id="category-select"
+                                    value={selectedCategory}
+                                    onChange={handleCategoryChange}
+                                    className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                                >
+                                    <option value="">Toutes les catégories</option>
+                                    {categories.map((category, index) => (
+                                        <option key={index} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                             <button
                                 type="submit"
                                 className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition duration-300 dark:bg-blue-500 dark:hover:bg-blue-600"
@@ -80,7 +123,7 @@ const Index = ({ products, query, batch }) => {
                     </form>
 
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {paginatedProducts.filter(product => product.image && product.name).map((product) => (
+                        {paginatedProducts.map((product) => (
                             <li
                                 key={product.objectID}
                                 className="py-4 flex items-center gap-3"
@@ -92,11 +135,16 @@ const Index = ({ products, query, batch }) => {
                                         alt={product.name}
                                     />
                                 </div>
-                                <div className="text-lg text-gray-700 dark:text-gray-200">
-                                    {product.name}
+                                <div className={"flex flex-col gap-2"}>
+                                    <div className="text-lg text-gray-700 dark:text-gray-200">
+                                        {product.name}
+                                    </div>
+                                    <div className="text-lg text-gray-700 dark:text-gray-200">
+                                        {product.type}
+                                    </div>
                                 </div>
                                 <div className="text-gray-500 font-medium dark:text-gray-400">
-                                    ${product.salePrice ? product.salePrice : '$00;00'}
+                                    ${product.salePrice ? product.salePrice : '$00.00'}
                                 </div>
                             </li>
                         ))}
