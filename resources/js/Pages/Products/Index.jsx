@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 
-const Index = ({ products, query }) => {
+const Index = ({ products, query, batch }) => {
     const [searchQuery, setSearchQuery] = useState(query || '');
+    const [searchBatchQuery, setSearchBatchQuery] = useState(batch || 50);
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 10;
     const totalPages = Math.ceil(products.length / productsPerPage);
 
     const handleSearch = (e) => {
         e.preventDefault();
-        router.get(route('products.index'), { q: searchQuery });
+        router.get(route('products.index'), { q: searchQuery, batch: searchBatchQuery });
     };
 
     const handlePageChange = (page) => {
@@ -21,6 +22,8 @@ const Index = ({ products, query }) => {
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
     );
+
+
 
     return (
         <AuthenticatedLayout
@@ -39,21 +42,30 @@ const Index = ({ products, query }) => {
 
                     <form
                         onSubmit={handleSearch}
-                        className="flex items-center gap-4 mb-6"
+                        className="flex flex-col gap-4 mb-6"
                     >
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Rechercher des produits..."
-                            className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
-                        />
-                        <button
-                            type="submit"
-                            className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition duration-300 dark:bg-blue-500 dark:hover:bg-blue-600"
-                        >
-                            Rechercher
-                        </button>
+                        <div className="flex items-center gap-4">
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Rechercher des produits..."
+                                className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+                            />
+                            <input
+                                type="number"
+                                value={searchBatchQuery}
+                                onChange={(e) => setSearchBatchQuery(e.target.value)}
+                                placeholder="Prix maximum"
+                                className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400"
+                            />
+                            <button
+                                type="submit"
+                                className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition duration-300 dark:bg-blue-500 dark:hover:bg-blue-600"
+                            >
+                                Rechercher
+                            </button>
+                        </div>
                     </form>
 
                     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -73,7 +85,7 @@ const Index = ({ products, query }) => {
                                     {product.name}
                                 </div>
                                 <div className="text-gray-500 font-medium dark:text-gray-400">
-                                    ${product.salePrice}
+                                    ${product.salePrice ? product.salePrice : '$00;00'}
                                 </div>
                             </li>
                         ))}
