@@ -9,15 +9,13 @@ class Product extends Model
 {
     use HasFactory, Searchable;
 
-    // Define the index name if it's different from the model's default
     public function searchableAs()
     {
         return 'ecommerce';
     }
 
-    // Define the fields to be indexed if necessary
     public function toSearchableArray()
     {
-        return $this->toArray(); // Customize if you need to.
+        return $this->toArray();
     }
 }

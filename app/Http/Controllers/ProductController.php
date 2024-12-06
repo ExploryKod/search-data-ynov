@@ -8,29 +8,25 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // Get the search query from the request
-        $query = $request->input('q', ''); // Default to an empty string if no query is provided
+        $query = $request->input('q', '');
         $indexName = "ecommerce";
 
         // Initialize the Algolia client
         $client = SearchClient::create(
-            config('scout.algolia.id'),      // App ID
-            config('scout.algolia.secret')  // API Key
+            config('scout.algolia.id'),
+            config('scout.algolia.secret')
         );
 
-       // Search for 'test'
         $searchResponse = $client->search(
             ['requests' => [
-            ['indexName' => $indexName, 'query' => $query]
+            ['indexName' => $indexName, 'query' => $query, 'hitsPerPage' => 50]
             ]],
         );
 
-        // Extract hits (the actual search results)
-        $products = $searchResponse;
-      
-        // Pass the results to the Inertia view
+        $products = $searchResponse['results'][0]['hits'];
+
         return inertia('Products/Index', [
-            'products' => $products['results'][0]['hits'],
+            'products' => $products,
             'query' => $query,
         ]);
     }
