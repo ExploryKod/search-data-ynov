@@ -1,8 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
+import { InstantSearch, SearchBox, Hits } from 'react-instantsearch';
 import { Head, router } from '@inertiajs/react';
 
-const Index = ({ products, query, batch }) => {
+function Hit({ hit }) {
+    return (
+        <article>
+
+            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <li
+                        className="py-4 flex items-center gap-3"
+                    >
+                        <div className="grow">
+                            <img
+                                className="w-[50px] h-[50px] object-cover aspect-square"
+                                src={hit.image}
+                                alt={hit.name}
+                            />
+                        </div>
+                        <div className={"flex flex-col gap-2"}>
+                            <div className="text-lg text-gray-700 dark:text-gray-200">
+                                {hit.name}
+                            </div>
+                            <div className="text-lg text-orange-700 dark:text-orange-600">
+                                {hit.type}
+                            </div>
+                        </div>
+                        <div className="text-gray-500 font-medium dark:text-gray-400">
+                            ${hit.salePrice ? hit.salePrice : '$00.00'}
+                        </div>
+                    </li>
+            </ul>
+        </article>
+    );
+}
+
+const Index = ({products, query, batch}) => {
     const [searchQuery, setSearchQuery] = useState(query || '');
     const [searchBatchQuery, setSearchBatchQuery] = useState(batch || 50);
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +56,7 @@ const Index = ({ products, query, batch }) => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        router.get(route('products.index'), { q: searchQuery, batch: searchBatchQuery });
+        router.get(route('products.index'), {q: searchQuery, batch: searchBatchQuery});
     };
 
     const handlePageChange = (page) => {
@@ -53,7 +86,7 @@ const Index = ({ products, query, batch }) => {
                 </h2>
             }
         >
-            <Head title="Products" />
+            <Head title="Products"/>
             <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10 dark:bg-gray-800">
                 <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6 dark:bg-gray-900">
                     <h1 className="text-3xl font-semibold text-gray-800 mb-6 dark:text-gray-100">
@@ -163,6 +196,12 @@ const Index = ({ products, query, batch }) => {
                             </button>
                         ))}
                     </div>
+                </div>
+            </div>
+            <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10 dark:bg-gray-800">
+                <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-6 dark:bg-gray-900">
+                    <SearchBox className={"rounded"}/>
+                    <Hits hitComponent={Hit}/>
                 </div>
             </div>
         </AuthenticatedLayout>
